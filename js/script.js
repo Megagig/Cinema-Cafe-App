@@ -35,14 +35,26 @@ const displayPopularMovies = async () => {
 //fetch data from TMDB API
 
 const fetchAPIData = async (endpoint) => {
+  //Register your API key at https://www.themoviedb.org/settings/api and enter here
+  //Only use this for development or very small projects. You should store your key and make requests from a Server
   const API_KEY = 'c012f0436866bbf5f024bee3107b5b7d';
   const API_URL = 'https://api.themoviedb.org/3/';
 
+  showSpinner();
   const response = await fetch(
     `${API_URL}${endpoint}?api_key=${API_KEY}&language=en-US`
   );
   const data = await response.json();
+  hideSpinner();
   return data;
+};
+
+const showSpinner = () => {
+  document.querySelector('.spinner').classList.add('show');
+};
+
+const hideSpinner = () => {
+  document.querySelector('.spinner').classList.remove('show');
 };
 //hightlight active link
 
