@@ -29,6 +29,7 @@ const displayPopularMovies = async () => {
       <small class="text-muted">${movie.release_date}</small>
     </p>
   </div>`;
+    document.getElementById('popular-movies').appendChild(div);
   });
 };
 //fetch data from TMDB API
