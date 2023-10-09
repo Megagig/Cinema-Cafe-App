@@ -1,5 +1,11 @@
 const global = {
   currentPage: window.location.pathname,
+  search: {
+    term: '',
+    type: '',
+    page: 1,
+    totalPages: 1,
+  },
 };
 
 //display 20 most  popular movies on home page
@@ -222,6 +228,19 @@ const displayBackgroundImage = (type, backgroundPath) => {
   }
 };
 
+//Search Movies and Shows
+const search = async () => {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  global.search.type = urlParams.get('type');
+  global.search.term = urlParams.get('search-term');
+
+  if (global.search.term !== '' && global.search.term !== null) {
+    // todo ---make request and display result
+  } else {
+    showAlert('Please enter a search term');
+  }
+};
 //Display Slider Movies
 const displaySliderMovies = async () => {
   const { results } = await fetchAPIData('movie/now_playing');
@@ -294,6 +313,16 @@ const hightlightActiveLink = () => {
     }
   });
 };
+
+//show alert
+const showAlert = (message, className) => {
+  alertEl = document.createElement('div');
+  alertEl.classList.add('alert', className);
+  alertEl.appendChild(document.createTextNode(message));
+  document.querySelector('#alert').appendChild(alertEl);
+
+  setTimeout(() => alertEl.remove(), 3000);
+};
 // Search for Js function to add commas to numbers in Stack Overflow
 const addCommasToNumber = (number) => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
@@ -317,7 +346,7 @@ const init = () => {
       displayShowDetails();
       break;
     case '/search.html':
-      console.log('Search');
+      search();
 
       break;
   }
