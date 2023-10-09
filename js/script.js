@@ -6,6 +6,10 @@ const global = {
     page: 1,
     totalPages: 1,
   },
+  api: {
+    apiKey: 'c012f0436866bbf5f024bee3107b5b7d',
+    apiUrl: 'https://api.themoviedb.org/3/',
+  },
 };
 
 //display 20 most  popular movies on home page
@@ -236,7 +240,8 @@ const search = async () => {
   global.search.term = urlParams.get('search-term');
 
   if (global.search.term !== '' && global.search.term !== null) {
-    // todo ---make request and display result
+    const results = await searchAPIData();
+    console.log(results);
   } else {
     showAlert('Please enter a search term');
   }
@@ -284,12 +289,26 @@ const initSwiper = () => {
 const fetchAPIData = async (endpoint) => {
   //Register your API key at https://www.themoviedb.org/settings/api and enter here
   //Only use this for development or very small projects. You should store your key and make requests from a Server
-  const API_KEY = 'c012f0436866bbf5f024bee3107b5b7d';
-  const API_URL = 'https://api.themoviedb.org/3/';
+  const API_KEY = global.api.apiKey;
+  const API_URL = global.api.apiUrl;
 
   showSpinner();
   const response = await fetch(
     `${API_URL}${endpoint}?api_key=${API_KEY}&language=en-US`
+  );
+  const data = await response.json();
+  hideSpinner();
+  return data;
+};
+
+//make request to SearchAPi
+const searchAPIData = async () => {
+  const API_KEY = global.api.apiKey;
+  const API_URL = global.api.apiUrl;
+
+  showSpinner();
+  const response = await fetch(
+    `${API_URL}search/${global.search.type}?api_key=${API_KEY}&language=en-US&query=${global.search.term}`
   );
   const data = await response.json();
   hideSpinner();
