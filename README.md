@@ -84,7 +84,7 @@ This project is [MIT](https://github.com/Megagig/Cinema-Cafe-App/blob/developmen
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo Link](https://megagig-cinema-app.netlify.app/)
+- [Live Demo Link](https://cinema-cafe-app.vercel.app/)
 
 <!-- GETTING STARTED -->
 
